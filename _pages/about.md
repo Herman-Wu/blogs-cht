@@ -4,10 +4,23 @@ title: About Me
 permalink: /about/
 ---
 
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+Senior Software Engineer currently @ Microsoft 
 
+<br>
+<br>
 
+_Mostly work on Data and Machine Learning engineering. Interested in things behind the number._
 
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+_Love funny projects, music, travel, hiking, ancient things, building, photograph, drone._  
+
+<br>
+<br>
+
+![img]({{site.baseurl}}/images/aboutme.jpg)
+
+<br>
+
+* Twitter: hermanwu01
+<br>
+*  [LinkedIn](https://www.linkedin.com/in/hermanwu01/)
