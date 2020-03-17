@@ -1,4 +1,174 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://herman-wu.github.io/blogs-cht/feed.xml" rel="self" type="application/atom+xml" /><link href="https://herman-wu.github.io/blogs-cht/" rel="alternate" type="text/html" /><updated>2020-03-17T03:29:45-05:00</updated><id>https://herman-wu.github.io/blogs-cht/feed.xml</id><title type="html">Herman的小筆記</title><subtitle>Here is the repository of notes that I would like to remember and share</subtitle><entry><title type="html">Build 2019 微軟 Azure Machine Learning Services 相關技術更新</title><link href="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/06/Build2019_AI_news.html" rel="alternate" type="text/html" title="Build 2019 微軟 Azure Machine Learning Services 相關技術更新" /><published>2019-05-06T00:00:00-05:00</published><updated>2019-05-06T00:00:00-05:00</updated><id>https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/06/Build2019_AI_news</id><content type="html" xml:base="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/06/Build2019_AI_news.html">&lt;p&gt;微軟Build 大會已經進行了第一天, 趁記憶猶新把一些Aze Machine Learning 相關的服務更新整理一下:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://herman-wu.github.io/blogs-cht/feed.xml" rel="self" type="application/atom+xml" /><link href="https://herman-wu.github.io/blogs-cht/" rel="alternate" type="text/html" /><updated>2020-03-17T03:42:51-05:00</updated><id>https://herman-wu.github.io/blogs-cht/feed.xml</id><title type="html">Herman的小筆記</title><subtitle>Here is the repository of notes that I would like to remember and share</subtitle><entry><title type="html">MLOps - 機器學習的開發流程與軟體開發DevOps流程的結合</title><link href="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html" rel="alternate" type="text/html" title="MLOps -  機器學習的開發流程與軟體開發DevOps流程的結合" /><published>2019-05-13T00:00:00-05:00</published><updated>2019-05-13T00:00:00-05:00</updated><id>https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps</id><content type="html" xml:base="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html">&lt;h1 id=&quot;mlops----機器學習的開發流程與軟體開發devops流程的結合&quot;&gt;MLOps -  機器學習的開發流程與軟體開發DevOps流程的結合&lt;/h1&gt;
+
+&lt;p&gt;日前在DevDay Asia 的活動中插花去講了一場介紹如何把軟體開發界現在必用的DevOp流程與機器學習(Machine Learning)的開發結合的課程。這邊也順便紀錄一下　當時介紹的內容跟準備心得。&lt;/p&gt;
+
+&lt;p&gt;機器學習的開發原本也就是許多程式碼的開發，不論現在主流的開發語言Python、R、或者用到C++、MatLab、Scala、Java、C#, 在開發上都牽涉到大量資料分析, 不同算法程式碼的撰寫。只是相異於一軟體開發的需求訪談 、收集User Story 、建構系統; 開發機器學習應用的資料科學家/開發者更多是需要與手上的資料談心，做不同的資料測試與前處理，來來回回的比較不同演算法，參數的預測分析結果。因此同樣是寫許多程式碼，機器學習應用的開發卻幾乎都獨立與一般軟體開發的流程開發脫鉤，有一套自己的做法。然而不論是銷售預測、物件辨識、語意分析或是異常偵測等不同的機器學習專案，最後完成機器學習模型仍需要整合到軟體系統中才能真正發揮功能。隨著越來越多各式ML/AI應用的需求出現，越來越多軟體系統把Machine Learning Model納入系統功能的一環的同時，機器學習模型開發與軟體開發中間這個斷落的環節開始日顯重要。&lt;/p&gt;
+
+&lt;p&gt;下圖即是一個機器學習專案可能會涉及的不同活動與階段，如何讓每個階段順暢的連接就是MLOps希望解決的問題。
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/MLPJActivities.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;MLOps 這個詞的就是Machine Learning + DEV+OPS 三個部分的縮寫合併&lt;/strong&gt;。也就是嘗試把軟體專案中機器學習模型的開發、軟體開發 、與系統持續維運的整個生命週期串接再一起; 並透過各司其職但互相連接的軟體系統讓整個專案團隊可以緊密的合作。在許多公司中這三大部分的工作常常分屬於三個不同的團隊，讓團隊彼此順暢的合作需要透過適當的流程串接。&lt;/p&gt;
+
+&lt;p&gt;下圖簡單列出這三大部分工作／團隊在機器學習專案中的主要核心任務。
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/MLOPsFlow.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;基本上MLOps 是機器學習專案實作上的理念，可以實作的技術方案有許多，不同的廠商也持續在發展各式解決方案。在這邊我們觸及的範圍包括JupyterNotebook、Azure Machine Learning Service、Azure DevOps、VSCode等技術方案，介紹微軟在這部分推出的做法跟方案。不過由於這幾個技術方案其實都包含蠻＂博大精深＂的內容，這次只能很簡略的透過範例做一個介紹。有興趣的朋友可以到相關網頁上去看更深入的介紹。　&lt;/p&gt;
+
+&lt;p&gt;下圖列出微軟MLOps裏頭包含的主要技術解決方案。
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/AzureMLOpsSln.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;根據Machine Learning 專案實務上常遇到的挑戰，微軟MLOps 強調五個必須著重的環節：&lt;/p&gt;
+
+&lt;h4 id=&quot;mlops-環節一-建立與訓練穩定的模型&quot;&gt;MLOps 環節一: 建立與訓練穩定的模型&lt;/h4&gt;
+
+&lt;p&gt;大部分的機器學習訓練專案，機器學習專家們大都會習慣從一個可以方便處理資料、顯示資料的Nootbook、Studio 開始(eg. Jupyter Notebook、 R Studio..)。這類工具有非常易懂而且直覺的介面，開發起來相當的友善及方便。不過在實際開發上，特別在中大型有多人合作的情況下，通常較容易忽略在”版控”與”重現訓練”的管理。這容易導致不同的團隊成員容易拿到不同的實驗結果，增加許多團隊溝通協調的成本&lt;/p&gt;
+
+&lt;p&gt;在這部分基本需要處理的議題有：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;機器學習模型版控&lt;/li&gt;
+  &lt;li&gt;資料預處理與模型訓練API化&lt;/li&gt;
+  &lt;li&gt;模型訓練環境的管理與運算資源調配/擴展&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;更進階的議題有：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Automatic Machine Learning 的支援&lt;/li&gt;
+  &lt;li&gt;Neural Network Architecture Search&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;azure-相關服務&quot;&gt;Azure 相關服務&lt;/h5&gt;
+&lt;p&gt;由於這部分牽涉的許多機器學習環境的管理，如模型版本管理、模型參數管理、測試資料管理、訓練環境參數管理、訓練環境建置等，大部分屬於Azure Machien Learning Services的一環。Azure Machine Learning Service 提供Python SDK 及CLI 支援。開發者可以在Jupyter Notebook 或是其他IDE 工具如 VSCode 中直接呼叫使用。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;*下圖顯示在Jupyter Notebook中使用Azure Machine Learning Service 將機器學習程式碼送到container環境中的訓練模型&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/SubmitRunTraining.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* Azure Machine Learning 紀錄與管理不同版本機器學習模型的訓練參數與模型結果&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/media/quickstart-run-cloud-notebook/web-results.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 透過AML Pipeline 來將Machine Learning Training 各階段變成可以reuse 的steps.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/AMLPipeline.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 在VSCode IDE 中使用Azure Machine Learning Services SDK 做AutoML 模型訓練並追蹤各個變數目前的數值&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/VSCode_AutoML.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 在VSCode中可以方便的檢視現在現有多少機器學習實驗、多少模型、可用的運算資源及目前佈署狀況等資訊&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/VSCode_AzureUI.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* Azure Machine Learning Service 包含廣泛的機器學習相關服務&lt;/em&gt;
+&lt;img src=&quot;imgs/AzureMLSrvKeyCompo.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;mlops-環節二-模型執行環境的一致性&quot;&gt;MLOps 環節二: 模型執行環境的一致性&lt;/h4&gt;
+&lt;p&gt;當模型開發出來後，就需要將Model檔封裝到執行環境變成容易被呼叫的API服務。由於現在機器學習專案大部分會引用許多不同的Library 來進行開發，不同的Library還有各自的版本。因此在這過程中要確保模型在實際運行時引用的library與其版本跟開發訓練階段完全一致，就需要透過適當的環境參數文件。
+在另一方面，目前軟體開發界最主流的系統執行環境管理是透過容器(container)技術，但是容器技術對一般資料科學家來說相較是距離較遠的技術，資料科學一般不希望花太多時間與精力在這個部分，但是這部份對於將機器學習模型變成企業可用的服務卻相當重要的一塊。&lt;/p&gt;
+
+&lt;p&gt;在這部分基本需要處理的議題有:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;機器學習模型訓練script化與pipeline化&lt;/li&gt;
+  &lt;li&gt;容器化機器學習模型服務&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;* 定義機器學習訓練所使用到的Library&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/ml_dep_yml.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 將透過AML Services 將訓練環境準備變成不同Steps script, 藉由Azure DevOp Pipeline 串接各個不同Data Cleaning, Feature Engineering, 訓練環境建置, 訓練執行, 機器學習模型檢測的steps&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/pipeline_yml.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 藉由Azure DevOps Pipeline, 可以隨時重複執行model traing, 並確保執行環境與步驟的一致性&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/pipelineAzureDevOp.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 透過AML SDK建立docker訓練環境並指定library到環境中&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/create_docker_image.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;mlops-環節三-模型預測行為的確認與驗證&quot;&gt;MLOps 環節三: 模型預測行為的確認與驗證&lt;/h4&gt;
+&lt;p&gt;雖然模型在開發過程中就會透過Validation Data/Testing Data評估準確度，然而當模型準備部屬到實際線上環境時，需要再次根據上線環境評估模型的執行速度、與實際線上資料格式的相容度。甚至隨著機器學習應用越來越廣泛，牽涉到的道德議題(例如對種族/膚色/性別的潛在歧視)、政府法規議題(個資、隱私權)也越來越被重視，這部分在比較嚴謹的企業中也開始會納入模型上線前的評估條件之一。&lt;/p&gt;
+
+&lt;p&gt;在這部分基本需要處理的議題有：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;機器學習服務功能測試&lt;/li&gt;
+  &lt;li&gt;機器學習服務效能測試&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;進階可能需要處理的議題有：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;機器學習服務道德議題影響評估&lt;/li&gt;
+  &lt;li&gt;機器學習模型的解釋性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;* 透過Azure ML Model interpretablitiy SDK 來解釋各因素對模型預測結果的影響&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/model_explain.jpg&quot; alt=&quot;img&quot; /&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/feature_impact_2.jpg&quot; alt=&quot;img&quot; /&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/feature_impact.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 測試機器學習服務API，確定服務運作正常&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/testACISrv.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;mlops-環節四-多元模型部屬環境的支與自動化&quot;&gt;MLOps 環節四: 多元模型部屬環境的支與自動化　&lt;/h4&gt;
+&lt;p&gt;機器學習的應用相當廣泛，從IoT物聯網的預測行維護到物件辨識，或是輿情分析，或者商品推薦，不同的應用情境需要不同的預測速度與處理資料量。有的可能需要大量資料批次預測，有的可能需要少量資料即時的預測。因此佈署的運算環境與特性也不一樣。&lt;/p&gt;
+
+&lt;p&gt;在這部分基本需要處理的議題有：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;批次大量預測環境支援&lt;/li&gt;
+  &lt;li&gt;即時預測環境支援與擴展&lt;/li&gt;
+  &lt;li&gt;IoT 物聯網執行環境支援&lt;/li&gt;
+  &lt;li&gt;自動化、標準化的模型更新與佈署&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;進階可能需要處理的議題有：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ML Services Auto Scale Out/Up/Down&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;* 將ML服務容器化佈署到Azure Container Instance中&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/aci_deploymment.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 藉由Azure IoT Edge, 將ML Model container image 部署到IoT裝置中&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/iotEdgeDeployCLI.jpg&quot; alt=&quot;img&quot; /&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/iotHubMLDeployJSON.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 將Azure DevOp pipeline流程與Machine Learning Services結合&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/AzureDevOpsMLext.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 結合Azure DevOp，將機器學習模型訓練與佈署納入自動化的CI/CD審核流程&lt;/em&gt;
+&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/MLDevOp_Deploy.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;mlops-環節五-持續的模型預測成效監控與警示&quot;&gt;MLOps 環節五: 持續的模型預測成效監控與警示&lt;/h4&gt;
+&lt;p&gt;在機器學習應用上線後，接下來的重點就是如何確保系統持續保持有效的預測準確度，在預測準確度下降時及時反應；同時不斷的透過實際預測的狀況，來進一步提升預測的準確度。&lt;/p&gt;
+
+&lt;p&gt;在這部分基本需要處理的議題有：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;機器學習服務回應速度監控&lt;/li&gt;
+  &lt;li&gt;機器學習服務預測精準度監控&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;進階可能需要處理的議題有：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;透過transfer learning/few shot learning 改善模型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在這部分除了結合Application Insight進行監控外，Azure ML 在這方面接也下會透過新的 Azure ML Audit Trail、ML Data Drift 服務提供相關功能。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 透過Application Insight收集機器學習服務效能資訊&lt;/em&gt;
+&lt;img src=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/media/how-to-enable-app-insights/advancedsettings.png&quot; alt=&quot;img&quot; /&gt;
+&lt;img src=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/media/how-to-enable-app-insights/overview.png#lightbox&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* 定期或是設定觸發條件讓模型自動根據新的資料做training或是透過transfer learning 運用新資料強化模型&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/retrain_mlops.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;mlopls-含括的東西相當的多基本上整合了mldevops三大領域&quot;&gt;MLOpls 含括的東西相當的多，基本上整合了ML+Dev+Ops三大領域&lt;/h5&gt;
+
+&lt;p&gt;由於MLOpls 含括的東西相當的多，基本上整合了ML+Dev+Ops三大領域，將機器學習模型開發的需求與一般軟體開發DevOps的practices做一個整合。由於牽涉到許多過去分開獨立運作的作業流程、開發技術與相關產品，因此有一套整合的流程跟可以互相銜接的產品對於機器學習專案在實務運作上會有不少的幫助。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/AzureMLOpsFlow.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;本篇以微軟MLOps為例，簡單的介紹了MLOps幾個核心的概念與相關實作技術與產品，能涵蓋的範圍有限。下圖是如果完成採用了MLOps的流程與Practices，在系統架構上大概牽涉到的服務與流程。有興趣的朋友可以去官方網站做更多的了解。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/MLOpsArchi_.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">MLOps - 機器學習的開發流程與軟體開發DevOps流程的結合</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://azurecomcdn.azureedge.net/cvt-ee71595d3667788def73479da1629d673313a0b081e460fc596839b82f34a2df/images/page/services/machine-learning/mlops/steps/mlops-slide1-step3.svg" /><media:content medium="image" url="https://azurecomcdn.azureedge.net/cvt-ee71595d3667788def73479da1629d673313a0b081e460fc596839b82f34a2df/images/page/services/machine-learning/mlops/steps/mlops-slide1-step3.svg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Build 2019 微軟 Azure Machine Learning Services 相關技術更新</title><link href="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/06/Build2019_AI_news.html" rel="alternate" type="text/html" title="Build 2019 微軟 Azure Machine Learning Services 相關技術更新" /><published>2019-05-06T00:00:00-05:00</published><updated>2019-05-06T00:00:00-05:00</updated><id>https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/06/Build2019_AI_news</id><content type="html" xml:base="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/06/Build2019_AI_news.html">&lt;p&gt;微軟Build 大會已經進行了第一天, 趁記憶猶新把一些Aze Machine Learning 相關的服務更新整理一下:&lt;/p&gt;
 
 &lt;h2 id=&quot;azure-machine-learning-services&quot;&gt;Azure Machine Learning Services&lt;/h2&gt;
 

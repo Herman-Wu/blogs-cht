@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MLOps - 機器學習的開發流程與軟體開發DevOps流程的結合 | Herman的小筆記</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="MLOps - 機器學習的開發流程與軟體開發DevOps流程的結合" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="在Azure 上實作DevOp流程與機器學習(Machine Learning)的開發整合心得筆記" />
+<meta property="og:description" content="在Azure 上實作DevOp流程與機器學習(Machine Learning)的開發整合心得筆記" />
+<link rel="canonical" href="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html" />
+<meta property="og:url" content="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html" />
+<meta property="og:site_name" content="Herman的小筆記" />
+<meta property="og:image" content="https://azurecomcdn.azureedge.net/cvt-ee71595d3667788def73479da1629d673313a0b081e460fc596839b82f34a2df/images/page/services/machine-learning/mlops/steps/mlops-slide1-step3.svg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-05-13T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"在Azure 上實作DevOp流程與機器學習(Machine Learning)的開發整合心得筆記","headline":"MLOps - 機器學習的開發流程與軟體開發DevOps流程的結合","dateModified":"2019-05-13T00:00:00-05:00","datePublished":"2019-05-13T00:00:00-05:00","@type":"BlogPosting","image":"https://azurecomcdn.azureedge.net/cvt-ee71595d3667788def73479da1629d673313a0b081e460fc596839b82f34a2df/images/page/services/machine-learning/mlops/steps/mlops-slide1-step3.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html"},"url":"https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blogs-cht/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://herman-wu.github.io/blogs-cht/feed.xml" title="Herman的小筆記" /><link rel="shortcut icon" type="image/x-icon" href="/blogs-cht/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MLOps - 機器學習的開發流程與軟體開發DevOps流程的結合 | Herman的小筆記</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="MLOps - 機器學習的開發流程與軟體開發DevOps流程的結合" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="在Azure 上實作DevOp流程與機器學習(Machine Learning)的開發整合心得筆記" />
+<meta property="og:description" content="在Azure 上實作DevOp流程與機器學習(Machine Learning)的開發整合心得筆記" />
+<link rel="canonical" href="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html" />
+<meta property="og:url" content="https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html" />
+<meta property="og:site_name" content="Herman的小筆記" />
+<meta property="og:image" content="https://azurecomcdn.azureedge.net/cvt-ee71595d3667788def73479da1629d673313a0b081e460fc596839b82f34a2df/images/page/services/machine-learning/mlops/steps/mlops-slide1-step3.svg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-05-13T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"在Azure 上實作DevOp流程與機器學習(Machine Learning)的開發整合心得筆記","headline":"MLOps - 機器學習的開發流程與軟體開發DevOps流程的結合","dateModified":"2019-05-13T00:00:00-05:00","datePublished":"2019-05-13T00:00:00-05:00","@type":"BlogPosting","image":"https://azurecomcdn.azureedge.net/cvt-ee71595d3667788def73479da1629d673313a0b081e460fc596839b82f34a2df/images/page/services/machine-learning/mlops/steps/mlops-slide1-step3.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html"},"url":"https://herman-wu.github.io/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://herman-wu.github.io/blogs-cht/feed.xml" title="Herman的小筆記" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blogs-cht/">Herman的小筆記</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blogs-cht/about/">About Me</a><a class="page-link" href="/blogs-cht/search/">Search</a><a class="page-link" href="/blogs-cht/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">MLOps -  機器學習的開發流程與軟體開發DevOps流程的結合</h1><p class="page-description">在Azure 上實作DevOp流程與機器學習(Machine Learning)的開發整合心得筆記</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-05-13T00:00:00-05:00" itemprop="datePublished">
+        May 13, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blogs-cht/categories/#microsoft">microsoft</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blogs-cht/categories/#AI">AI</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blogs-cht/categories/#build">build</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="mlops----機器學習的開發流程與軟體開發devops流程的結合">MLOps -  機器學習的開發流程與軟體開發DevOps流程的結合</h1>
+
+<p>日前在DevDay Asia 的活動中插花去講了一場介紹如何把軟體開發界現在必用的DevOp流程與機器學習(Machine Learning)的開發結合的課程。這邊也順便紀錄一下　當時介紹的內容跟準備心得。</p>
+
+<p>機器學習的開發原本也就是許多程式碼的開發，不論現在主流的開發語言Python、R、或者用到C++、MatLab、Scala、Java、C#, 在開發上都牽涉到大量資料分析, 不同算法程式碼的撰寫。只是相異於一軟體開發的需求訪談 、收集User Story 、建構系統; 開發機器學習應用的資料科學家/開發者更多是需要與手上的資料談心，做不同的資料測試與前處理，來來回回的比較不同演算法，參數的預測分析結果。因此同樣是寫許多程式碼，機器學習應用的開發卻幾乎都獨立與一般軟體開發的流程開發脫鉤，有一套自己的做法。然而不論是銷售預測、物件辨識、語意分析或是異常偵測等不同的機器學習專案，最後完成機器學習模型仍需要整合到軟體系統中才能真正發揮功能。隨著越來越多各式ML/AI應用的需求出現，越來越多軟體系統把Machine Learning Model納入系統功能的一環的同時，機器學習模型開發與軟體開發中間這個斷落的環節開始日顯重要。</p>
+
+<p>下圖即是一個機器學習專案可能會涉及的不同活動與階段，如何讓每個階段順暢的連接就是MLOps希望解決的問題。
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/MLPJActivities.jpg" alt="img" /></p>
+
+<p><strong>MLOps 這個詞的就是Machine Learning + DEV+OPS 三個部分的縮寫合併</strong>。也就是嘗試把軟體專案中機器學習模型的開發、軟體開發 、與系統持續維運的整個生命週期串接再一起; 並透過各司其職但互相連接的軟體系統讓整個專案團隊可以緊密的合作。在許多公司中這三大部分的工作常常分屬於三個不同的團隊，讓團隊彼此順暢的合作需要透過適當的流程串接。</p>
+
+<p>下圖簡單列出這三大部分工作／團隊在機器學習專案中的主要核心任務。
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/MLOPsFlow.jpg" alt="img" /></p>
+
+<p>基本上MLOps 是機器學習專案實作上的理念，可以實作的技術方案有許多，不同的廠商也持續在發展各式解決方案。在這邊我們觸及的範圍包括JupyterNotebook、Azure Machine Learning Service、Azure DevOps、VSCode等技術方案，介紹微軟在這部分推出的做法跟方案。不過由於這幾個技術方案其實都包含蠻＂博大精深＂的內容，這次只能很簡略的透過範例做一個介紹。有興趣的朋友可以到相關網頁上去看更深入的介紹。　</p>
+
+<p>下圖列出微軟MLOps裏頭包含的主要技術解決方案。
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/AzureMLOpsSln.jpg" alt="img" /></p>
+
+<p>根據Machine Learning 專案實務上常遇到的挑戰，微軟MLOps 強調五個必須著重的環節：</p>
+
+<h4 id="mlops-環節一-建立與訓練穩定的模型">MLOps 環節一: 建立與訓練穩定的模型</h4>
+
+<p>大部分的機器學習訓練專案，機器學習專家們大都會習慣從一個可以方便處理資料、顯示資料的Nootbook、Studio 開始(eg. Jupyter Notebook、 R Studio..)。這類工具有非常易懂而且直覺的介面，開發起來相當的友善及方便。不過在實際開發上，特別在中大型有多人合作的情況下，通常較容易忽略在”版控”與”重現訓練”的管理。這容易導致不同的團隊成員容易拿到不同的實驗結果，增加許多團隊溝通協調的成本</p>
+
+<p>在這部分基本需要處理的議題有：</p>
+<ul>
+  <li>機器學習模型版控</li>
+  <li>資料預處理與模型訓練API化</li>
+  <li>模型訓練環境的管理與運算資源調配/擴展</li>
+</ul>
+
+<p>更進階的議題有：</p>
+<ul>
+  <li>Automatic Machine Learning 的支援</li>
+  <li>Neural Network Architecture Search</li>
+</ul>
+
+<h5 id="azure-相關服務">Azure 相關服務</h5>
+<p>由於這部分牽涉的許多機器學習環境的管理，如模型版本管理、模型參數管理、測試資料管理、訓練環境參數管理、訓練環境建置等，大部分屬於Azure Machien Learning Services的一環。Azure Machine Learning Service 提供Python SDK 及CLI 支援。開發者可以在Jupyter Notebook 或是其他IDE 工具如 VSCode 中直接呼叫使用。</p>
+
+<p><em>*下圖顯示在Jupyter Notebook中使用Azure Machine Learning Service 將機器學習程式碼送到container環境中的訓練模型</em></p>
+
+<p><img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/SubmitRunTraining.jpg" alt="img" /></p>
+
+<p><em>* Azure Machine Learning 紀錄與管理不同版本機器學習模型的訓練參數與模型結果</em></p>
+
+<p><img src="https://docs.microsoft.com/en-us/azure/machine-learning/service/media/quickstart-run-cloud-notebook/web-results.png" alt="img" /></p>
+
+<p><em>* 透過AML Pipeline 來將Machine Learning Training 各階段變成可以reuse 的steps.</em></p>
+
+<p><img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/AMLPipeline.jpg" alt="img" /></p>
+
+<p><em>* 在VSCode IDE 中使用Azure Machine Learning Services SDK 做AutoML 模型訓練並追蹤各個變數目前的數值</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/VSCode_AutoML.jpg" alt="img" /></p>
+
+<p><em>* 在VSCode中可以方便的檢視現在現有多少機器學習實驗、多少模型、可用的運算資源及目前佈署狀況等資訊</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/VSCode_AzureUI.jpg" alt="img" /></p>
+
+<p><em>* Azure Machine Learning Service 包含廣泛的機器學習相關服務</em>
+<img src="imgs/AzureMLSrvKeyCompo.jpg" alt="img" /></p>
+
+<h4 id="mlops-環節二-模型執行環境的一致性">MLOps 環節二: 模型執行環境的一致性</h4>
+<p>當模型開發出來後，就需要將Model檔封裝到執行環境變成容易被呼叫的API服務。由於現在機器學習專案大部分會引用許多不同的Library 來進行開發，不同的Library還有各自的版本。因此在這過程中要確保模型在實際運行時引用的library與其版本跟開發訓練階段完全一致，就需要透過適當的環境參數文件。
+在另一方面，目前軟體開發界最主流的系統執行環境管理是透過容器(container)技術，但是容器技術對一般資料科學家來說相較是距離較遠的技術，資料科學一般不希望花太多時間與精力在這個部分，但是這部份對於將機器學習模型變成企業可用的服務卻相當重要的一塊。</p>
+
+<p>在這部分基本需要處理的議題有:</p>
+<ul>
+  <li>機器學習模型訓練script化與pipeline化</li>
+  <li>容器化機器學習模型服務</li>
+</ul>
+
+<p><em>* 定義機器學習訓練所使用到的Library</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/ml_dep_yml.jpg" alt="img" /></p>
+
+<p><em>* 將透過AML Services 將訓練環境準備變成不同Steps script, 藉由Azure DevOp Pipeline 串接各個不同Data Cleaning, Feature Engineering, 訓練環境建置, 訓練執行, 機器學習模型檢測的steps</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/pipeline_yml.jpg" alt="img" /></p>
+
+<p><em>* 藉由Azure DevOps Pipeline, 可以隨時重複執行model traing, 並確保執行環境與步驟的一致性</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/pipelineAzureDevOp.jpg" alt="img" /></p>
+
+<p><em>* 透過AML SDK建立docker訓練環境並指定library到環境中</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/create_docker_image.jpg" alt="img" /></p>
+
+<h4 id="mlops-環節三-模型預測行為的確認與驗證">MLOps 環節三: 模型預測行為的確認與驗證</h4>
+<p>雖然模型在開發過程中就會透過Validation Data/Testing Data評估準確度，然而當模型準備部屬到實際線上環境時，需要再次根據上線環境評估模型的執行速度、與實際線上資料格式的相容度。甚至隨著機器學習應用越來越廣泛，牽涉到的道德議題(例如對種族/膚色/性別的潛在歧視)、政府法規議題(個資、隱私權)也越來越被重視，這部分在比較嚴謹的企業中也開始會納入模型上線前的評估條件之一。</p>
+
+<p>在這部分基本需要處理的議題有：</p>
+<ul>
+  <li>機器學習服務功能測試</li>
+  <li>機器學習服務效能測試</li>
+</ul>
+
+<p>進階可能需要處理的議題有：</p>
+<ul>
+  <li>機器學習服務道德議題影響評估</li>
+  <li>機器學習模型的解釋性</li>
+</ul>
+
+<p><em>* 透過Azure ML Model interpretablitiy SDK 來解釋各因素對模型預測結果的影響</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/model_explain.jpg" alt="img" />
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/feature_impact_2.jpg" alt="img" />
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/feature_impact.jpg" alt="img" /></p>
+
+<p><em>* 測試機器學習服務API，確定服務運作正常</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/testACISrv.jpg" alt="img" /></p>
+
+<h4 id="mlops-環節四-多元模型部屬環境的支與自動化">MLOps 環節四: 多元模型部屬環境的支與自動化　</h4>
+<p>機器學習的應用相當廣泛，從IoT物聯網的預測行維護到物件辨識，或是輿情分析，或者商品推薦，不同的應用情境需要不同的預測速度與處理資料量。有的可能需要大量資料批次預測，有的可能需要少量資料即時的預測。因此佈署的運算環境與特性也不一樣。</p>
+
+<p>在這部分基本需要處理的議題有：</p>
+<ul>
+  <li>批次大量預測環境支援</li>
+  <li>即時預測環境支援與擴展</li>
+  <li>IoT 物聯網執行環境支援</li>
+  <li>自動化、標準化的模型更新與佈署</li>
+</ul>
+
+<p>進階可能需要處理的議題有：</p>
+<ul>
+  <li>ML Services Auto Scale Out/Up/Down</li>
+</ul>
+
+<p><em>* 將ML服務容器化佈署到Azure Container Instance中</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/aci_deploymment.jpg" alt="img" /></p>
+
+<p><em>* 藉由Azure IoT Edge, 將ML Model container image 部署到IoT裝置中</em></p>
+
+<p><img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/iotEdgeDeployCLI.jpg" alt="img" />
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/iotHubMLDeployJSON.jpg" alt="img" /></p>
+
+<p><em>* 將Azure DevOp pipeline流程與Machine Learning Services結合</em></p>
+
+<p><img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/AzureDevOpsMLext.jpg" alt="img" /></p>
+
+<p><em>* 結合Azure DevOp，將機器學習模型訓練與佈署納入自動化的CI/CD審核流程</em>
+<img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/MLDevOp_Deploy.jpg" alt="img" /></p>
+
+<h4 id="mlops-環節五-持續的模型預測成效監控與警示">MLOps 環節五: 持續的模型預測成效監控與警示</h4>
+<p>在機器學習應用上線後，接下來的重點就是如何確保系統持續保持有效的預測準確度，在預測準確度下降時及時反應；同時不斷的透過實際預測的狀況，來進一步提升預測的準確度。</p>
+
+<p>在這部分基本需要處理的議題有：</p>
+<ul>
+  <li>機器學習服務回應速度監控</li>
+  <li>機器學習服務預測精準度監控</li>
+</ul>
+
+<p>進階可能需要處理的議題有：</p>
+<ul>
+  <li>透過transfer learning/few shot learning 改善模型</li>
+</ul>
+
+<p>在這部分除了結合Application Insight進行監控外，Azure ML 在這方面接也下會透過新的 Azure ML Audit Trail、ML Data Drift 服務提供相關功能。</p>
+
+<p><em>* 透過Application Insight收集機器學習服務效能資訊</em>
+<img src="https://docs.microsoft.com/en-us/azure/machine-learning/service/media/how-to-enable-app-insights/advancedsettings.png" alt="img" />
+<img src="https://docs.microsoft.com/en-us/azure/machine-learning/service/media/how-to-enable-app-insights/overview.png#lightbox" alt="img" /></p>
+
+<p><em>* 定期或是設定觸發條件讓模型自動根據新的資料做training或是透過transfer learning 運用新資料強化模型</em></p>
+
+<p><img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/retrain_mlops.jpg" alt="img" /></p>
+
+<h5 id="mlopls-含括的東西相當的多基本上整合了mldevops三大領域">MLOpls 含括的東西相當的多，基本上整合了ML+Dev+Ops三大領域</h5>
+
+<p>由於MLOpls 含括的東西相當的多，基本上整合了ML+Dev+Ops三大領域，將機器學習模型開發的需求與一般軟體開發DevOps的practices做一個整合。由於牽涉到許多過去分開獨立運作的作業流程、開發技術與相關產品，因此有一套整合的流程跟可以互相銜接的產品對於機器學習專案在實務運作上會有不少的幫助。</p>
+
+<p><img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/AzureMLOpsFlow.jpg" alt="img" /></p>
+
+<p>本篇以微軟MLOps為例，簡單的介紹了MLOps幾個核心的概念與相關實作技術與產品，能涵蓋的範圍有限。下圖是如果完成採用了MLOps的流程與Practices，在系統架構上大概牽涉到的服務與流程。有興趣的朋友可以去官方網站做更多的了解。</p>
+
+<p><img src="https://Herman-Wu.github.io/blogs-cht/assets/img/2019-05-13-MLOps/MLOpsArchi_.jpg" alt="img" /></p>
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Herman-Wu/blogs-cht"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blogs-cht/microsoft/ai/build/2019/05/13/MLOps.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blogs-cht/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blogs-cht/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blogs-cht/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Here is the repository of notes that I would like to remember and share</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/Herman-Wu" title="Herman-Wu"><svg class="svg-icon grey"><use xlink:href="/blogs-cht/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/hermanwu01" title="hermanwu01"><svg class="svg-icon grey"><use xlink:href="/blogs-cht/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
